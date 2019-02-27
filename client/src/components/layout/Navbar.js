@@ -8,13 +8,15 @@ class Navbar extends Component {
         <nav className="z-depth-0">
           <div className="nav-wrapper white">
             <Link
-              to="/"
+              to="/dashboard"
               style={{
-                fontFamily: "monospace"
+                display: "flex",
+                justifyContent: "center",
+                fontFamily: "monospace",
+                fontSize: 18
               }}
-              className="col s5 brand-logo center black-text"
+              className="black-text"
             >
-              <i className="material-icons">code</i>
               MERN
             </Link>
           </div>

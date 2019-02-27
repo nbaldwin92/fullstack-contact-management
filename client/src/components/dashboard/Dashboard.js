@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { MDBBtn } from "mdbreact";
+import { Link } from "react-router-dom";
+
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 
@@ -13,28 +16,34 @@ class Dashboard extends Component {
     const { user } = this.props.auth;
 
     return (
-      <div style={{ height: "75vh" }} className="container valign-wrapper">
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          textAlign: "center"
+        }}
+      >
         <div className="row">
-          <div className="landing-copy col s12 center-align">
+          <div style={{ textAlign: "center" }}>
             <h4>
               <b>Hey there,</b> {user.name.split(" ")[0]}
               <p className="flow-text grey-text text-darken-1">
-                You are logged into a full-stack{" "}
-                <span style={{ fontFamily: "monospace" }}>MERN</span> app 👏
+                Congrats! You are logged in{" "}
+                <span role="img" aria-label="clap">
+                  👏
+                </span>
               </p>
             </h4>
-            <button
-              style={{
-                width: "150px",
-                borderRadius: "3px",
-                letterSpacing: "1.5px",
-                marginTop: "1rem"
-              }}
-              onClick={this.onLogoutClick}
-              className="btn btn-large waves-effect waves-light hoverable blue accent-3"
-            >
+            <MDBBtn color="primary" size="md" onClick={this.onLogoutClick}>
               Logout
-            </button>
+            </MDBBtn>
+            <Link to="/contacts">
+              <MDBBtn color="secondary" size="md">
+                Another Page
+              </MDBBtn>
+            </Link>
           </div>
         </div>
       </div>

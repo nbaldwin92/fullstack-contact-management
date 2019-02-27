@@ -13,6 +13,7 @@ import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import Dashboard from "./components/dashboard/Dashboard";
+import Contacts from "./components/pages/Contacts";
 
 import "./App.css";
 
@@ -33,6 +34,9 @@ if (localStorage.jwtToken) {
 
     // Redirect to login
     window.location.href = "./login";
+  } else {
+    const isAuth = store.dispatch(setCurrentUser(decoded));
+    store.dispatch(isAuth);
   }
 }
 class App extends Component {
@@ -47,6 +51,7 @@ class App extends Component {
             <Route exact path="/login" component={Login} />
             <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              <PrivateRoute exact path="/contacts" component={Contacts} />
             </Switch>
           </div>
         </Router>
