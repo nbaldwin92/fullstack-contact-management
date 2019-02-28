@@ -9,6 +9,11 @@ import {
   MDBIcon
 } from "mdbreact";
 
+import axios from "axios";
+
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+
 class EditModal extends Component {
   constructor(props) {
     super(props);
@@ -19,8 +24,21 @@ class EditModal extends Component {
   }
 
   editContact = () => {
-    alert("edit contact. New name: " + this.state.name);
-    alert(this.props.objectId);
+    axios
+      .put("/api/contact/editcontacts", {
+        objectId: this.props.objectId,
+        name: this.state.name
+      })
+      .then(res => {
+        this.setState({ list: res.data });
+      })
+      .catch(res => {
+        console.log(res);
+      });
+
+    this.setState({
+      modal14: false
+    });
   };
 
   onChange = e => {
@@ -85,4 +103,13 @@ class EditModal extends Component {
   }
 }
 
-export default EditModal;
+EditModal.propTypes = {
+  auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
+
+export default connect(mapStateToProps)(EditModal);

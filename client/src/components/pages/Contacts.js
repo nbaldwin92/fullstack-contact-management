@@ -127,7 +127,11 @@ class Contacts extends Component {
                       }}
                     />
                   </div>
-                  <EditModal name={list.contact} objectId={list._id} />
+                  <EditModal
+                    onClick={this.updateList()}
+                    name={list.contact}
+                    objectId={list._id}
+                  />
                 </MDBCardBody>
               </MDBCard>
             </MDBCol>

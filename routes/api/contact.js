@@ -26,6 +26,29 @@ router.get("/getcontacts", (req, res) => {
   });
 });
 
+router.put("/editcontacts", (req, res) => {
+  const { name, objectId } = req.body;
+
+  NewContact.findOneAndUpdate(
+    { _id: objectId },
+    {
+      $set: { contact: name }
+    },
+    { new: true },
+    (err, contact) => {
+      if (!err) {
+        res.status(201).json({
+          message: "Updated!"
+        });
+      } else {
+        res.status(500).json({
+          message: "Error"
+        });
+      }
+    }
+  );
+});
+
 router.delete("/removecontact", (req, res) => {
   const { id } = req.body;
 
