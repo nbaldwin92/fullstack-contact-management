@@ -1,22 +1,32 @@
 import React, { Component } from "react";
+import ReactDOM from "react-dom";
+
 import {
   MDBBtn,
-  MDBTable,
-  MDBTableBody,
-  MDBTableHead,
-  MDBIcon
+  MDBIcon,
+  MDBCard,
+  MDBCardBody,
+  MDBCardImage,
+  MDBCardTitle,
+  MDBCardText,
+  MDBCol,
+  MDBRow,
+  MDBContainer
 } from "mdbreact";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
+import EditModal from "../modals/EditModal";
+
 import axios from "axios";
 
 class Contacts extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       contact: "",
-      list: []
+      list: [],
+      modal14: false
     };
   }
 
@@ -93,30 +103,37 @@ class Contacts extends Component {
     const { user } = this.props.auth;
 
     const elementToRender = this.state.list.length ? (
-      <MDBTable striped>
-        <MDBTableHead>
-          <tr>
-            <th>Name</th>
-          </tr>
-        </MDBTableHead>
-        <MDBTableBody>
+      <div>
+        <MDBRow>
           {this.state.list.map(list => (
-            <tr key={list._id}>
-              <td key={list._id}>{list.contact}</td>
-              <td key={list.contact}>
-                <MDBIcon
-                  key={list.addedBy}
-                  icon="trash-alt"
-                  className="red-text"
-                  onClick={() => {
-                    this.removeContact(list._id);
-                  }}
+            <MDBCol key={list.contact}>
+              <MDBCard key={list._id} style={{ width: "22rem" }}>
+                <MDBCardImage
+                  key={list.date}
+                  className="img-fluid"
+                  src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg"
+                  waves
                 />
-              </td>
-            </tr>
+                <MDBCardBody>
+                  <MDBCardTitle>{list.contact}</MDBCardTitle>
+                  <MDBCardText>Added on: {list.date}</MDBCardText>
+                  <div style={{ float: "left" }}>
+                    <MDBIcon
+                      key={list.addedBy}
+                      icon="trash-alt"
+                      className="red-text"
+                      onClick={() => {
+                        this.removeContact(list._id);
+                      }}
+                    />
+                  </div>
+                  <EditModal name={list.contact} objectId={list._id} />
+                </MDBCardBody>
+              </MDBCard>
+            </MDBCol>
           ))}
-        </MDBTableBody>
-      </MDBTable>
+        </MDBRow>
+      </div>
     ) : (
       <p>You have no contacts!</p>
     );
