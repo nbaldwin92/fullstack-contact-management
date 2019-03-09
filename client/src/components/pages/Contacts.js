@@ -1,23 +1,19 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
 
 import {
   MDBBtn,
   MDBIcon,
   MDBCard,
   MDBCardBody,
-  MDBCardImage,
   MDBCardTitle,
   MDBCardText,
   MDBCol,
-  MDBRow,
-  MDBContainer
+  MDBRow
 } from "mdbreact";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import EditModal from "../modals/EditModal";
-
 import axios from "axios";
 
 class Contacts extends Component {
@@ -108,18 +104,17 @@ class Contacts extends Component {
           {this.state.list.map(list => (
             <MDBCol key={list.contact}>
               <MDBCard key={list._id} style={{ width: "22rem" }}>
-                <MDBCardImage
-                  key={list.date}
-                  className="img-fluid"
-                  src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg"
-                  waves
-                />
                 <MDBCardBody>
-                  <MDBCardTitle>{list.contact}</MDBCardTitle>
+                  <MDBCardTitle>
+                    {" "}
+                    <MDBIcon style={{ marginRight: 5 }} icon="user-circle" />
+                    {list.contact}
+                  </MDBCardTitle>
                   <MDBCardText>Added on: {list.date}</MDBCardText>
                   <div style={{ float: "left" }}>
                     <MDBIcon
                       key={list.addedBy}
+                      style={styles.trashCanIcon}
                       icon="trash-alt"
                       className="red-text"
                       onClick={() => {
@@ -165,6 +160,8 @@ class Contacts extends Component {
     );
   }
 }
+
+const styles = {};
 
 Contacts.propTypes = {
   auth: PropTypes.object.isRequired
